@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-Hans"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weather App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1392ec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101a22",
+            },
+            fontFamily: {
+              display: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            keyframes: {
+             "fade-in-up": {
+               "0%": { opacity: "0", transform: "translateY(20px)" },
+               "100%": { opacity: "1", transform: "translateY(0)" },
+             },
+           },
+           animation: {
+             "fade-in-up": "fade-in-up 2000ms ease-out both",
+           },
+          },
+        },
+      };
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+<div class="min-h-screen bg-cover bg-center" style="background-image: url('images/winnipeg_weather.jpeg');">
+<div class="min-h-screen bg-black/10 dark:bg-black/30 backdrop-blur-sm">
+<header class="flex items-center justify-between p-4 text-white">
+<div class="w-8"></div>
+<h1 class="font-bold text-center flex-1 text-6xl mt-10">温尼伯</h1>
+<div class="w-8"></div>
+</header>
+<main class="px-6 py-8 flex flex-col items-center animate-fade-in-up hidden">
+  <div class="flex flex-col items-center space-y-2 mb-8 text-white">
+    <p>2025年12月5日</p>
+    </div>
+<div class="flex flex-col items-center space-y-2 mb-8 text-white">
+<span class="material-symbols-outlined text-5xl" style="font-size: 8rem;"> partly_cloudy_day </span>
+<p class="text-5xl font-bold">24°</p>
+<p class="text-xl opacity-90">Sunny</p>
+<p class="text-base opacity-80">Feels like 26°</p>
+</div>
+<div class="w-full bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-lg p-4 rounded-xl shadow-lg">
+<h2 class="text-base font-semibold mb-4 text-white">5天预报</h2>
+<ul class="space-y-3 text-white">
+<li class="flex items-center justify-between">
+<p class="text-base font-medium opacity-90">Monday</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-2xl"> sunny </span>
+<p class="text-base opacity-90">28° / 18°</p>
+</div>
+</li>
+<li class="flex items-center justify-between">
+<p class="text-base font-medium opacity-90">Tuesday</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-2xl"> cloud </span>
+<p class="text-base opacity-90">26° / 17°</p>
+</div>
+</li>
+<li class="flex items-center justify-between">
+<p class="text-base font-medium opacity-90">Wednesday</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-2xl"> partly_cloudy_day </span>
+<p class="text-base opacity-90">27° / 19°</p>
+</div>
+</li>
+<li class="flex items-center justify-between">
+<p class="text-base font-medium opacity-90">Thursday</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-2xl"> rainy </span>
+<p class="text-base opacity-90">25° / 16°</p>
+</div>
+</li>
+<li class="flex items-center justify-between">
+<p class="text-base font-medium opacity-90">Friday</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-2xl"> sunny </span>
+<p class="text-base opacity-90">29° / 20°</p>
+</div>
+</li>
+</ul>
+</div>
+</main>
+<script>
+  // Hide <main> for 1s, then reveal and restart the entrance animation
+  document.addEventListener("DOMContentLoaded", () => {
+    const main = document.querySelector("main");
+    if (!main) return;
+    // Keep hidden for 1s
+    setTimeout(() => {
+      // Reveal
+      main.classList.remove("hidden");
+      // Restart animation to ensure it plays when revealed
+      main.classList.remove("animate-fade-in-up");
+      // Force reflow
+      void main.offsetWidth;
+      main.classList.add("animate-fade-in-up");
+    }, 1000);
+  });
+</script>
+<footer class="fixed bottom-0 left-0 right-0 bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-xl border-t border-white/20">
+<nav class="flex justify-around p-2">
+<button class="flex flex-col items-center text-white opacity-90 hover:opacity-100">
+<span class="text-lg"> 数据来源：Environment Canada </span>
+<span class="text-xs mt-1">制作整理：加拿大大厨师</span>
+</button>
+</nav>
+</footer>
+</div>
+</div>
+
+</body></html>

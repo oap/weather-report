@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node & package managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Environment files
+.env
+.env.* 
+
+# Build / output
+dist/
+build/
+coverage/
+.cache/
+
+# Recordings / media
+videos/
+*.webm
+*.mp4
+*.mov
+
+# Logs
+*.log
+
+# Windows
+Thumbs.db
