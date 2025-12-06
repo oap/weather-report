@@ -2,7 +2,7 @@
 <html class="dark" lang="zh-Hans"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Weather App</title>
+<title>天气应用</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -34,7 +34,7 @@
              },
            },
            animation: {
-             "fade-in-up": "fade-in-up 2000ms ease-out both",
+             "fade-in-up": "fade-in-up 600ms ease-out both",
            },
           },
         },
@@ -50,92 +50,284 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
   </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
-<div class="min-h-screen bg-cover bg-center" style="background-image: url('images/winnipeg_weather.jpeg');">
+<div class="min-h-screen bg-cover bg-center" id="bgContainer" style="background-image: url('images/weather.jpeg');">
 <div class="min-h-screen bg-black/10 dark:bg-black/30 backdrop-blur-sm">
 <header class="flex items-center justify-between p-4 text-white">
-<div class="w-8"></div>
-<h1 class="font-bold text-center flex-1 text-6xl mt-10">温尼伯</h1>
-<div class="w-8"></div>
+<button id="prevBtn" class="w-8 h-8 flex items-center justify-center hover:opacity-70 transition">
+  <span class="material-symbols-outlined">chevron_left</span>
+</button>
+<h1 class="font-bold text-center flex-1 text-6xl mt-10" id="cityName">温尼伯</h1>
+<button id="nextBtn" class="w-8 h-8 flex items-center justify-center hover:opacity-70 transition">
+  <span class="material-symbols-outlined">chevron_right</span>
+</button>
 </header>
-<main class="px-6 py-8 flex flex-col items-center animate-fade-in-up hidden">
+<main class="px-6 py-8 flex flex-col items-center animate-fade-in-up hidden" id="mainContent">
   <div class="flex flex-col items-center space-y-2 mb-8 text-white">
-    <p>2025年12月5日</p>
-    </div>
+    <p id="currentDate">加载中...</p>
+  </div>
 <div class="flex flex-col items-center space-y-2 mb-8 text-white">
-<span class="material-symbols-outlined text-5xl" style="font-size: 8rem;"> partly_cloudy_day </span>
-<p class="text-5xl font-bold">24°</p>
-<p class="text-xl opacity-90">Sunny</p>
-<p class="text-base opacity-80">Feels like 26°</p>
+<span class="material-symbols-outlined text-5xl" id="weatherIcon" style="font-size: 8rem;">cloud</span>
+<p class="text-5xl font-bold" id="currentTemp">--°</p>
+<p class="text-xl opacity-90" id="weatherDesc">--</p>
+<p class="text-base opacity-80" id="feelsLike">--</p>
 </div>
 <div class="w-full bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-lg p-4 rounded-xl shadow-lg">
 <h2 class="text-base font-semibold mb-4 text-white">5天预报</h2>
-<ul class="space-y-3 text-white">
+<ul class="space-y-3 text-white" id="forecastList">
 <li class="flex items-center justify-between">
-<p class="text-base font-medium opacity-90">Monday</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-2xl"> sunny </span>
-<p class="text-base opacity-90">28° / 18°</p>
-</div>
-</li>
-<li class="flex items-center justify-between">
-<p class="text-base font-medium opacity-90">Tuesday</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-2xl"> cloud </span>
-<p class="text-base opacity-90">26° / 17°</p>
-</div>
-</li>
-<li class="flex items-center justify-between">
-<p class="text-base font-medium opacity-90">Wednesday</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-2xl"> partly_cloudy_day </span>
-<p class="text-base opacity-90">27° / 19°</p>
-</div>
-</li>
-<li class="flex items-center justify-between">
-<p class="text-base font-medium opacity-90">Thursday</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-2xl"> rainy </span>
-<p class="text-base opacity-90">25° / 16°</p>
-</div>
-</li>
-<li class="flex items-center justify-between">
-<p class="text-base font-medium opacity-90">Friday</p>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-2xl"> sunny </span>
-<p class="text-base opacity-90">29° / 20°</p>
-</div>
+<p class="text-base font-medium opacity-90">加载中...</p>
 </li>
 </ul>
 </div>
 </main>
 <script>
-  // Hide <main> for 1s, then reveal and restart the entrance animation
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    if (!main) return;
-    // Keep hidden for 1s
+  const weatherData = {};
+  let cities = [];
+  let currentCityIndex = 0;
+  let currentCity = null;
+
+  // 天气代码到中文描述和图标的映射
+  const weatherCodeMap = {
+    0: { desc: '晴天', icon: 'sunny' },
+    1: { desc: '晴朗', icon: 'sunny' },
+    2: { desc: '部分多云', icon: 'partly_cloudy_day' },
+    3: { desc: '阴天', icon: 'cloud' },
+    45: { desc: '雾', icon: 'cloud' },
+    48: { desc: '雾凇', icon: 'cloud' },
+    51: { desc: '小毛毛雨', icon: 'grain' },
+    53: { desc: '中度毛毛雨', icon: 'grain' },
+    55: { desc: '大毛毛雨', icon: 'grain' },
+    61: { desc: '小雨', icon: 'rainy' },
+    63: { desc: '中雨', icon: 'rainy' },
+    65: { desc: '大雨', icon: 'thunderstorm' },
+    71: { desc: '小雪', icon: 'ac_unit' },
+    73: { desc: '中雪', icon: 'ac_unit' },
+    75: { desc: '大雪', icon: 'ac_unit' },
+    77: { desc: '雪粒', icon: 'ac_unit' },
+    80: { desc: '小阵雨', icon: 'rainy' },
+    81: { desc: '中阵雨', icon: 'rainy' },
+    82: { desc: '大阵雨', icon: 'thunderstorm' },
+    85: { desc: '小阵雪', icon: 'ac_unit' },
+    86: { desc: '大阵雪', icon: 'ac_unit' },
+    95: { desc: '雷暴', icon: 'thunderstorm' },
+    96: { desc: '冰雹雷暴', icon: 'thunderstorm' },
+    99: { desc: '冰雹雷暴', icon: 'thunderstorm' },
+  };
+
+  const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+  function getWeatherInfo(code) {
+    return weatherCodeMap[code] || { desc: '未知', icon: 'cloud' };
+  }
+
+  function getBackgroundImage(cityName) {
+    const now = new Date();
+    const hour = now.getHours();
+    const month = now.getMonth() + 1;
+    
+    // 根据季节和时间构建背景图片名称
+    let season = 'weather'; // 默认
+    if (month >= 3 && month <= 5) {
+      season = 'spring';
+    } else if (month >= 6 && month <= 8) {
+      season = 'summer';
+    } else if (month >= 9 && month <= 11) {
+      season = 'autumn';
+    } else {
+      season = 'winter';
+    }
+    
+    const timeOfDay = hour >= 6 && hour < 18 ? 'day' : 'night';
+    
+    // 构建候选背景图片列表（优先级从高到低）
+    const backgroundCandidates = [
+      `${cityName}_${season}_${timeOfDay}.jpeg`,
+      `${cityName}_${season}.jpeg`,
+      `${cityName}_${timeOfDay}.jpeg`,
+      `${cityName}.jpeg`,
+      'weather.jpeg'
+    ];
+    
+    console.log(`[背景图片] 城市: ${cityName}, 季节: ${season}, 时段: ${timeOfDay}, 当前小时: ${hour}`);
+    console.log(`[背景图片] 候选图片列表:`, backgroundCandidates);
+    
+    return backgroundCandidates;
+  }
+
+  async function setBackgroundImage(cityName) {
+    const candidates = getBackgroundImage(cityName);
+    let selectedImage = 'weather.jpeg'; // 默认fallback
+    
+    for (const candidate of candidates) {
+      try {
+        const response = await fetch('images/' + candidate, { method: 'HEAD' });
+        if (response.ok) {
+          selectedImage = candidate;
+          console.log(`[背景图片] ✓ 使用图片: ${selectedImage}`);
+          break;
+        }
+      } catch (error) {
+        console.log(`[背景图片] ✗ 检查失败: ${candidate}`);
+      }
+    }
+    
+    const bgContainer = document.getElementById('bgContainer');
+    const imageUrl = 'images/' + selectedImage;
+    bgContainer.style.backgroundImage = `url('${imageUrl}')`;
+    console.log(`[背景图片] 最终设置背景为: ${imageUrl}`);
+  }
+
+  async function fetchWeather(lat, lon) {
+    try {
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code,apparent_temperature&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=celsius&wind_speed_unit=kmh&timezone=auto';
+      
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.error('API 响应错误:', response.status, response.statusText);
+        return null;
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('天气数据获取失败:', error);
+      return null;
+    }
+  }
+
+  async function loadCities() {
+    try {
+      const response = await fetch('cities.json');
+      cities = await response.json();
+      cities = cities.filter(city => city.enabled);
+      
+      if (cities.length > 0) {
+        // 检查 URL 参数是否指定了城市
+        const params = new URLSearchParams(window.location.search);
+        const cityParam = params.get('city');
+        
+        let startIndex = 0;
+        if (cityParam) {
+          const foundCity = cities.findIndex(c => c.name.toLowerCase() === cityParam.toLowerCase());
+          if (foundCity !== -1) {
+            startIndex = foundCity;
+          }
+        }
+        
+        await updateWeatherDisplay(startIndex);
+      }
+    } catch (error) {
+      console.error('城市数据加载失败:', error);
+    }
+  }
+
+  async function updateWeatherDisplay(index) {
+    currentCityIndex = index;
+    const city = cities[index];
+    currentCity = city;
+    
+    // 设置背景图片
+    await setBackgroundImage(city.name);
+    
+    if (!weatherData[city.code]) {
+      const data = await fetchWeather(city.lat, city.long);
+      if (data) {
+        weatherData[city.code] = data;
+      } else {
+        console.error('无法获取城市天气数据:', city.name_cn);
+        return;
+      }
+    }
+
+    const weather = weatherData[city.code];
+    if (!weather || !weather.current) {
+      console.error('天气数据无效:', city.name_cn);
+      return;
+    }
+
+    // 更新城市名称
+    document.getElementById('cityName').textContent = city.name_cn;
+
+    // 更新当前日期
+    const currentDate = new Date();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    const dayOfWeek = weekDays[currentDate.getDay()];
+    document.getElementById('currentDate').textContent = `${month}月${day}日 ${dayOfWeek}`;
+
+    // 更新当前天气
+    const current = weather.current;
+    const weatherInfo = getWeatherInfo(current.weather_code);
+    document.getElementById('weatherIcon').textContent = weatherInfo.icon;
+    document.getElementById('currentTemp').textContent = `${Math.round(current.temperature_2m)}°`;
+    document.getElementById('weatherDesc').textContent = weatherInfo.desc;
+    document.getElementById('feelsLike').textContent = `体感温度 ${Math.round(current.apparent_temperature)}°`;
+
+    // 更新5天预报
+    const daily = weather.daily;
+    const forecastList = document.getElementById('forecastList');
+    forecastList.innerHTML = '';
+
+    for (let i = 1; i < 6 && i < daily.time.length; i++) {
+      const date = new Date(daily.time[i]);
+      const dayName = weekDays[date.getDay()];
+      const code = daily.weather_code[i];
+      const weatherInfo = getWeatherInfo(code);
+      const maxTemp = Math.round(daily.temperature_2m_max[i]);
+      const minTemp = Math.round(daily.temperature_2m_min[i]);
+
+      const li = document.createElement('li');
+      li.className = 'flex items-center justify-between';
+      li.innerHTML = `
+        <p class="text-base font-medium opacity-90">${dayName}</p>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-2xl">${weatherInfo.icon}</span>
+          <p class="text-base opacity-90">${maxTemp}° / ${minTemp}°</p>
+        </div>
+      `;
+      forecastList.appendChild(li);
+    }
+
+    // 显示 main
+    const mainContent = document.getElementById('mainContent');
+    mainContent.classList.add('hidden');
     setTimeout(() => {
-      // Reveal
-      main.classList.remove("hidden");
-      // Restart animation to ensure it plays when revealed
-      main.classList.remove("animate-fade-in-up");
-      // Force reflow
+      mainContent.classList.remove('hidden');
+      mainContent.classList.remove('animate-fade-in-up');
+      void mainContent.offsetWidth;
+      mainContent.classList.add('animate-fade-in-up');
+    }, 500);
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    const newIndex = (currentCityIndex - 1 + cities.length) % cities.length;
+    updateWeatherDisplay(newIndex);
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const newIndex = (currentCityIndex + 1) % cities.length;
+    updateWeatherDisplay(newIndex);
+  });
+
+  // 页面加载时执行
+  document.addEventListener('DOMContentLoaded', () => {
+    loadCities();
+
+    // 1秒后显示 main 动画
+    setTimeout(() => {
+      const main = document.getElementById('mainContent');
+      main.classList.remove('hidden');
+      main.classList.remove('animate-fade-in-up');
       void main.offsetWidth;
-      main.classList.add("animate-fade-in-up");
+      main.classList.add('animate-fade-in-up');
     }, 1000);
   });
 </script>
 <footer class="fixed bottom-0 left-0 right-0 bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-xl border-t border-white/20">
 <nav class="flex justify-around p-2">
 <button class="flex flex-col items-center text-white opacity-90 hover:opacity-100">
-<span class="text-lg"> 数据来源：Environment Canada </span>
+<span class="text-lg">数据来源：Open-Meteo</span>
 <span class="text-xs mt-1">制作整理：加拿大大厨师</span>
 </button>
 </nav>
