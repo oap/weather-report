@@ -1,0 +1,281 @@
+[
+	{
+		"name": "Toronto",
+		"province": "ON",
+		"code": "on-143",
+		"enabled": true,
+		"lat": 43.655,
+		"long": -79.383,
+		"name_cn": "多伦多"
+	},
+	{
+		"name": "Montreal",
+		"province": "QC",
+		"code": "qc-147",
+		"enabled": true,
+		"lat": 45.529,
+		"long": -73.562,
+		"name_cn": "蒙特利尔"
+	},
+	{
+		"name": "Vancouver",
+		"province": "BC",
+		"code": "bc-74",
+		"enabled": true,
+		"lat": 49.245,
+		"long": -123.115,
+		"name_cn": "温哥华"
+	},
+	{
+		"name": "Calgary",
+		"province": "AB",
+		"code": "ab-52",
+		"enabled": true,
+		"lat": 51.046,
+		"long": -114.057,
+		"name_cn": "卡尔加里"
+	},
+	{
+		"name": "Edmonton",
+		"province": "AB",
+		"code": "ab-50",
+		"enabled": true,
+		"lat": 53.536,
+		"long": -113.494,
+		"name_cn": "埃德蒙顿"
+	},
+	{
+		"name": "Ottawa",
+		"province": "ON",
+		"code": "on-118",
+		"enabled": true,
+		"lat": 45.403,
+		"long": -75.687,
+		"name_cn": "渥太华"
+	},
+	{
+		"name": "Winnipeg",
+		"province": "MB",
+		"code": "mb-38",
+		"enabled": true,
+		"lat": 49.895,
+		"long": -97.135,
+		"name_cn": "温尼伯"
+	},
+	{
+		"name": "Quebec City",
+		"province": "QC",
+		"code": "qc-133",
+		"enabled": true,
+		"lat": 46.811,
+		"long": -71.225,
+		"name_cn": "魁北克城"
+	},
+	{
+		"name": "Halifax",
+		"province": "NS",
+		"code": "ns-19",
+		"enabled": true,
+		"lat": 44.649,
+		"long": -63.602,
+		"name_cn": "哈利法克斯"
+	},
+	{
+		"name": "Saskatoon",
+		"province": "SK",
+		"code": "sk-40",
+		"enabled": true,
+		"lat": 52.131,
+		"long": -106.659,
+		"name_cn": "萨斯卡通"
+	},
+	{
+		"name": "Victoria",
+		"province": "BC",
+		"code": "bc-85",
+		"enabled": true,
+		"lat": 48.433,
+		"long": -123.362,
+		"name_cn": "维多利亚"
+	},
+	{
+		"name": "Regina",
+		"province": "SK",
+		"code": "sk-32",
+		"enabled": true,
+		"lat": 50.45,
+		"long": -104.617,
+		"name_cn": "里贾纳"
+	},
+	{
+		"name": "St. John's",
+		"province": "NL",
+		"code": "nl-24",
+		"enabled": true,
+		"lat": 47.558,
+		"long": -52.717,
+		"name_cn": "圣约翰斯"
+	},
+	{
+		"name": "Fredericton",
+		"province": "NB",
+		"code": "nb-29",
+		"enabled": true,
+		"lat": 45.955,
+		"long": -66.646,
+		"name_cn": "弗雷德里克顿"
+	},
+	{
+		"name": "Charlottetown",
+		"province": "PE",
+		"code": "pe-5",
+		"enabled": true,
+		"lat": 46.243,
+		"long": -63.127,
+		"name_cn": "夏洛特敦"
+	},
+	{
+		"name": "Yellowknife",
+		"province": "NT",
+		"code": "nt-24",
+		"enabled": true,
+		"lat": 62.45358486,
+		"long": -114.3691106,
+		"name_cn": "耶洛奈夫"
+	},
+	{
+		"name": "Whitehorse",
+		"province": "YT",
+		"code": "yt-16",
+		"enabled": true,
+		"lat": 60.727,
+		"long": -135.074,
+		"name_cn": "怀特霍斯"
+	},
+	{
+		"name": "Iqaluit",
+		"province": "NU",
+		"code": "nu-21",
+		"enabled": true,
+		"lat": 63.75,
+		"long": -68.517,
+		"name_cn": "伊卡卢伊特"
+	},
+	{
+		"name": "Kelowna",
+		"province": "BC",
+		"code": "bc-48",
+		"enabled": true,
+		"lat": 49.8833,
+		"long": -119.4833,
+		"name_cn": "基洛纳"
+	},
+	{
+		"name": "Prince George",
+		"province": "BC",
+		"code": "bc-79",
+		"enabled": true,
+		"lat": 53.912,
+		"long": -122.776,
+		"name_cn": "乔治王子城"
+	},
+	{
+		"name": "Fort McMurray",
+		"province": "AB",
+		"code": "ab-20",
+		"enabled": true,
+		"lat": 56.727,
+		"long": -111.387,
+		"name_cn": "麦克默里堡"
+	},
+	{
+		"name": "Thunder Bay",
+		"province": "ON",
+		"code": "on-100",
+		"enabled": true,
+		"lat": 48.408,
+		"long": -89.24,
+		"name_cn": "雷湾"
+	},
+	{
+		"name": "Sudbury",
+		"province": "ON",
+		"code": "on-40",
+		"enabled": true,
+		"lat": 46.489,
+		"long": -80.995,
+		"name_cn": "萨德伯里"
+	},
+	{
+		"name": "London",
+		"province": "ON",
+		"code": "on-137",
+		"enabled": true,
+		"lat": 42.982,
+		"long": -81.249,
+		"name_cn": "伦敦"
+	},
+	{
+		"name": "Windsor",
+		"province": "ON",
+		"code": "on-73",
+		"enabled": true,
+		"lat": 49.6438888,
+		"long": -83.4041666,
+		"name_cn": "温莎"
+	},
+	{
+		"name": "Moncton",
+		"province": "NB",
+		"code": "nb-36",
+		"enabled": true,
+		"lat": 46.091,
+		"long": -64.791,
+		"name_cn": "蒙克顿"
+	},
+	{
+		"name": "Banff",
+		"province": "AB",
+		"code": "ab-49",
+		"enabled": true,
+		"lat": 51.179,
+		"long": -115.569,
+		"name_cn": "班夫"
+	},
+	{
+		"name": "Jasper",
+		"province": "AB",
+		"code": "ab-70",
+		"enabled": true,
+		"lat": 52.871,
+		"long": -118.093,
+		"name_cn": "贾斯珀"
+	},
+	{
+		"name": "Whistler",
+		"province": "BC",
+		"code": "bc-86",
+		"enabled": true,
+		"lat": 50.117,
+		"long": -122.955,
+		"name_cn": "惠斯勒"
+	},
+	{
+		"name": "Niagara Falls",
+		"province": "ON",
+		"code": "on-107",
+		"enabled": true,
+		"lat": 43.16,
+		"long": -79.245,
+		"name_cn": "尼亚加拉瀑布城"
+	},
+	{
+		"name": "Tofino",
+		"province": "BC",
+		"code": "bc-94",
+		"enabled": true,
+		"lat": 52.164,
+		"long": -128.144,
+		"name_cn": "托菲诺"
+	}
+]
