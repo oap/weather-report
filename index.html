@@ -24,35 +24,46 @@
 
 <body class="bg-background-light dark:bg-background-dark font-display text-white">
   <div class="min-h-screen bg-cover bg-center" id="bgContainer" style="background-image: url('images/weather.jpeg');">
-    <div class="min-h-screen bg-black/10 dark:bg-black/30 backdrop-blur-sm">
-      <header class="flex items-center justify-between p-4 text-white">
-        <button id="prevBtn" class="w-8 h-8 flex items-center justify-center hover:opacity-70 transition">
-          <span class="material-symbols-outlined">chevron_left</span>
-        </button>
-        <h1 class="font-bold text-center flex-1 text-6xl mt-10" id="cityName">温尼伯</h1>
-        <button id="nextBtn" class="w-8 h-8 flex items-center justify-center hover:opacity-70 transition">
-          <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-      </header>
-      <main class="px-6 py-8 flex flex-col items-center animate-fade-in-up hidden" id="mainContent">
-        <div class="flex flex-col items-center space-y-2 mb-8 text-white">
-          <p id="currentDate">加载中...</p>
-        </div>
-        <div class="flex flex-col items-center space-y-2 mb-8 text-white">
-          <span class="material-symbols-outlined text-5xl" id="weatherIcon" style="font-size: 8rem;">cloud</span>
-          <p class="text-5xl font-bold" id="currentTemp">--°</p>
-          <p class="text-xl opacity-90" id="weatherDesc">--</p>
-          <p class="text-base opacity-80" id="feelsLike">--</p>
-        </div>
-        <div class="w-full bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-lg p-4 rounded-xl shadow-lg">
-          <h2 class="text-base font-semibold mb-4 text-white">5天预报</h2>
-          <ul class="space-y-3 text-white" id="forecastList">
-            <li class="flex items-center justify-between">
-              <p class="text-base font-medium opacity-90">加载中...</p>
-            </li>
-          </ul>
-        </div>
-      </main>
+    <div class="min-h-screen bg-black/10 dark:bg-black/30 backdrop-blur-sm flex flex-col justify-center items-center">
+      <div class="h-[70vh] w-[80%] flex flex-col justify-between">
+        <header class="flex items-center justify-between p-4 text-white">
+          <button id="prevBtn" class="w-12 h-12 flex items-center justify-center hover:opacity-70 transition">
+            <span class="material-symbols-outlined text-4xl">chevron_left</span>
+          </button>
+          <h1 class="font-bold text-center flex-1 text-8xl mt-10" id="cityName">温尼伯</h1>
+          <button id="nextBtn" class="w-12 h-12 flex items-center justify-center hover:opacity-70 transition">
+            <span class="material-symbols-outlined text-4xl">chevron_right</span>
+          </button>
+        </header>
+        <main class="px-6 py-8 flex flex-col items-center animate-fade-in-up hidden flex-1 justify-center"
+          id="mainContent">
+          <div class="flex flex-col items-center space-y-4 mb-12 text-white">
+            <p id="currentDate" class="text-3xl">加载中...</p>
+          </div>
+          <div class="flex flex-col items-center space-y-4 mb-12 text-white">
+            <span class="material-symbols-outlined" id="weatherIcon" style="font-size: 15rem;">cloud</span>
+            <p class="text-8xl font-bold" id="currentTemp">--°</p>
+            <p class="text-4xl opacity-90" id="weatherDesc">--</p>
+            <p class="text-3xl opacity-80" id="feelsLike">--</p>
+          </div>
+          <div class="w-full bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-lg p-6 rounded-3xl shadow-lg">
+            <h2 class="text-3xl font-semibold mb-6 text-white">5天预报</h2>
+            <ul class="space-y-6 text-white" id="forecastList">
+              <li class="flex items-center justify-between">
+                <p class="text-2xl font-medium opacity-90">加载中...</p>
+              </li>
+            </ul>
+          </div>
+        </main>
+        <footer class="bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-xl border-t border-white/20 rounded-xl mt-4">
+          <nav class="flex justify-around p-4">
+            <button class="flex flex-col items-center text-white opacity-90 hover:opacity-100">
+              <span class="text-2xl">数据来源：Open-Meteo</span>
+              <span class="text-lg mt-2">制作整理：加拿大大厨师</span>
+            </button>
+          </nav>
+        </footer>
+      </div>
       <script>
         const weatherData = {};
         let cities = [];
@@ -251,11 +262,11 @@
             const li = document.createElement('li');
             li.className = 'grid grid-cols-3 items-center';
             li.innerHTML = `
-        <p class="text-base font-medium opacity-90 text-left">${dayName}</p>
+        <p class="text-2xl font-medium opacity-90 text-left">${dayName}</p>
         <div class="text-center">
-          <span class="material-symbols-outlined text-2xl">${weatherInfo.icon}</span>
+          <span class="material-symbols-outlined" style="font-size: 3rem">${weatherInfo.icon}</span>
         </div>
-        <p class="text-base opacity-90 text-right">${maxTemp}° / ${minTemp}°</p>
+        <p class="text-2xl opacity-90 text-right">${maxTemp}° / ${minTemp}°</p>
       `;
             forecastList.appendChild(li);
           }
@@ -295,15 +306,6 @@
           }, 1000);
         });
       </script>
-      <footer
-        class="fixed bottom-0 left-0 right-0 bg-slate-500/20 dark:bg-slate-800/20 backdrop-blur-xl border-t border-white/20">
-        <nav class="flex justify-around p-2">
-          <button class="flex flex-col items-center text-white opacity-90 hover:opacity-100">
-            <span class="text-lg">数据来源：Open-Meteo</span>
-            <span class="text-xs mt-1">制作整理：加拿大大厨师</span>
-          </button>
-        </nav>
-      </footer>
     </div>
   </div>
 
