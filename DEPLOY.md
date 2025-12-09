@@ -32,6 +32,10 @@ This method automatically deploys your site whenever you push changes to your re
    - **Framework preset**: `None`.
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`.
+   - **Environment Variables**: Add `NODE_VERSION` with value `18` (or higher) to ensure Tailwind CSS v4 compatibility.
+
+   > [!IMPORTANT]
+   > **Tailwind CSS v4 Update**: If you are updating an existing project, go to your deployment settings and select **"Retrying with cleared cache"** or **"Clear cache and deploy"** to ensure the new build configuration is picked up correctly.
 
 4. **Deploy**
    - Click **Save and Deploy**.
